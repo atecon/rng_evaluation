@@ -1,0 +1,17 @@
+set verbose off
+clear
+set seed 1234
+
+include color_xy.gfn
+
+scalar T = 50000            # Length of random-walks
+nulldata T --preserve       # initialize data set
+setobs 1 1 --time-series    # define time-series data set
+
+series y = cum(normal())
+series x = cum(normal())
+
+gnuplot y x --with-lines --time-series --output="display"
+
+scalar dark2light = TRUE
+color_xy(y, x, "RW", dark2light)
