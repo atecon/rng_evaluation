@@ -1,0 +1,28 @@
+set verbose off
+clear
+set seed 1234
+
+include "../src/helper.inp"
+
+# Panel dataa set
+scalar T = 5000
+scalar N = 20
+scalar NT = N * T
+nulldata NT --preserve
+
+series y = normal()
+series x = normal()
+setobs T 1:1 --stacked-time-series
+
+
+matrix avg = aggregate(y, $unit, "mean")
+matrix q50 = aggregate(y, $unit, "median")
+matrix sd = aggregate(y, $unit, "sd")
+matrix skew = aggregate(y, $unit, "skewness")
+matrix kurt = aggregate(y, $unit, "kurtosis")
+matrix ar1corr = aggregate(y, $unit, ar1corr)
+matrix hansen = aggregate(y, $unit, hansen)
+matrix jbera = aggregate(y, $unit, jbera)
+
+print avg q50 sd skew kurt ar1corr hansen jbera
+

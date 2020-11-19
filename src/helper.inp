@@ -1,0 +1,15 @@
+
+function scalar ar1corr (const series y)
+    series y1 = y(-1)
+    return mcorr({y}[2:] ~ {y1})[1,2]
+end function
+
+function scalar hansen (const series y)
+    normtest y --dhansen
+    return $pvalue
+end function
+
+function scalar jbera (const series y)
+    normtest y --jbera
+    return $pvalue
+end function
